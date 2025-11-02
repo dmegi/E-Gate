@@ -1,0 +1,40 @@
+﻿import { useEffect, useState } from "react";
+import { api } from "../../api";
+
+export default function EventList({ onSelectEvent, activeId }) {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    api.get("/events/")
+      .then((res) => setEvents(res.data))
+      .catch((err) => console.error(err));
+  }, []);
+
+  return (
+    <div>
+      <h3>Events</h3>
+      <ul className="event-list">
+        {events.map((event) => {
+          const isActive = activeId === event.id;
+          return (
+            <li
+              key={event.id}
+              onClick={() => onSelectEvent(event.id)}
+              style={{
+                cursor: "pointer",
+                background: isActive ? "#22c55e" : "#f3f4f6",
+                color: isActive ? "white" : "inherit",
+                margin: "5px",
+                padding: "10px",
+                borderRadius: "6px",
+              }}
+            >
+              {event.title} - {event.event_type}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
