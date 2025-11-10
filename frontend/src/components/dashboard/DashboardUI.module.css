@@ -1,0 +1,112 @@
+/* Header and toolbar */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.count { opacity: 0.8; }
+
+.controlGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Buttons */
+.button {
+  appearance: none;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #fff;
+  color: #111827;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.button:hover { background: #f9fafb; }
+.button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.primary {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+
+.primary:hover { background: #0b1220; }
+
+.button:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.45);
+}
+
+/* Inputs */
+.select {
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #fff;
+  padding: 7px 10px;
+  border-radius: 8px;
+}
+
+.label { color: #374151; }
+
+/* Table */
+.tableWrapper {
+  overflow: auto;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: linear-gradient(#f9fafb, #f3f4f6);
+  color: #111827;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+}
+
+.table th, .table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eef2f7;
+  vertical-align: middle;
+}
+
+.table tbody tr:nth-child(even) { background: #fafafa; }
+.table tbody tr:hover { background: #f3f4f6; }
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .controls { flex-direction: column; align-items: stretch; gap: 8px; }
+  .controlGroup { justify-content: space-between; }
+  .table th, .table td { padding: 10px 12px; }
+}
+

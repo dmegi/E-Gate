@@ -10,8 +10,13 @@ export default function EventList({ onSelectEvent, activeId }) {
   const pageSize = 20; const [hasNext, setHasNext] = useState(false); const [hasPrev, setHasPrev] = useState(false);
 
   useEffect(() => {
+    const orderingParam =
+      sortBy === "date_asc" ? "date" :
+      sortBy === "title_asc" ? "title" :
+      sortBy === "title_desc" ? "-title" : "-date";
+    const q = encodeURIComponent(search.trim());
     api
-      .get(`/events/list/?page=${page}`)
+      .get(`/events/list/?page=${page}&ordering=${orderingParam}${q ? `&q=${q}` : ""}`)
       .then((res) => {
         const data = res.data || {};
         setEvents(data.results || []);
@@ -19,7 +24,7 @@ export default function EventList({ onSelectEvent, activeId }) {
         setHasPrev(!!data.previous);
       })
       .catch((err) => console.error(err));
-  }, [page]);
+  }, [page, search, sortBy]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -104,6 +109,7 @@ export default function EventList({ onSelectEvent, activeId }) {
     </div>
   );
 }
+
 
 
 

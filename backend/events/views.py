@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from .models import Event, EventRegistration, EventAttendance
 from .serializers import EventSerializer, EventRegistrationSerializer, EventAttendanceSerializer
 from accounts.permissions import IsAdminUserRole, IsResidentUserRole
+from django.db.models import Q
 
 
 # ðŸ§‘â€ðŸ’¼ Create Event (Admin Only)
@@ -233,7 +234,24 @@ class EventListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Event.objects.select_related('created_by').all().order_by('-date')
+        qs = Event.objects.select_related('created_by').all()
+        q = self.request.query_params.get('q')
+        if q:
+            qs = qs.filter(
+                Q(title__icontains=q)
+                | Q(event_type__icontains=q)
+                | Q(venue__icontains=q)
+                | Q(description__icontains=q)
+            )
+        ordering = self.request.query_params.get('ordering')
+        ordering_map = {
+            'date': 'date',
+            '-date': '-date',
+            'title': 'title',
+            '-title': '-title',
+        }
+        order = ordering_map.get(ordering, '-date')
+        return qs.order_by(order)
 
 
 # Retrieve single event (by id)

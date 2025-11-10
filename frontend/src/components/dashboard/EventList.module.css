@@ -1,0 +1,41 @@
+/* Search + toolbar */
+.search {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+/* List */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  cursor: pointer;
+  background: #f3f4f6;
+  color: inherit;
+  margin: 5px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.item:hover {
+  background: #e5e7eb;
+}
+
+.itemActive {
+  background: #22c55e;
+  color: white;
+}
+
